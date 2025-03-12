@@ -20,12 +20,12 @@ function App() {
   return (
     <div>
       <p>secretAccessKey:</p>
-      <input value={secretAccessKey} onChange={e => setSecretAccessKey(e.target.value)}/>
+      <input type="password" value={secretAccessKey} onChange={e => setSecretAccessKey(e.target.value)}/>
+      <p>accessKeyId:</p>
+      <input type="password" value={accessKeyId} onChange={e => setAccessKeyId(e.target.value)}/>
 
       <p>model:</p>
       <input value={model} onChange={e => setModel(e.target.value)}/>
-      <p>accessKeyId:</p>
-      <input value={accessKeyId} onChange={e => setAccessKeyId(e.target.value)}/>
       <p>Ask:</p>
       <input value={input} onChange={e => setInput(e.target.value)}/>
       <button onClick={askQuestion}>Ask</button>

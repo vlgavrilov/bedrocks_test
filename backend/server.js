@@ -7,17 +7,20 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const clientAi = new BedrockRuntimeClient({
-  region: 'eu-west-1',
-  credentials: {
-    accessKeyId: '',
-    secretAccessKey: '',
-  },
-});
+
 
 app.post('/ask', async (req, res) => {
   try {
-    const { question } = req.body;
+    const { question, accessKeyId, secretAccessKey, model } = req.body;
+
+    const clientAi = new BedrockRuntimeClient({
+      region: 'eu-west-1',
+      credentials: {
+        accessKeyId: accessKeyId,
+        secretAccessKey: secretAccessKey,
+      },
+    });
+
     const requestBody = {
       prompt: question,
       // maxTokens: 1024,
@@ -29,7 +32,7 @@ app.post('/ask', async (req, res) => {
       // frequencyPenalty: { scale: 0 },
     };
     const input = {
-      modelId: 'mistral.mistral-large-2402-v1:0',
+      modelId: model || 'mistral.mistral-large-2402-v1:0',
       contentType: 'application/json',
       accept: 'application/json',
       body: JSON.stringify(requestBody)
