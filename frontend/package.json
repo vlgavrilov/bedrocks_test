@@ -9,11 +9,24 @@
     "serve": "^14.2.0"
   },
   "scripts": {
+    "start": "PORT=3010 react-scripts start",
     "build": "react-scripts build"
   },
   "main": "index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
