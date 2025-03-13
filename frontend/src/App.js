@@ -1,9 +1,7 @@
 import { useState } from 'react';
 
 function App() {
-  const [secretAccessKey, setSecretAccessKey] = useState('AccessKey');
   const [model, setModel] = useState('mistral.mistral-large-2402-v1:0');
-  const [accessKeyId, setAccessKeyId] = useState('KeyId');
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
 
@@ -11,7 +9,7 @@ function App() {
     const response = await fetch('http://localhost:5001/ask', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question: input, accessKeyId, model, secretAccessKey }),
+      body: JSON.stringify({ question: input, model }),
     });
     const data = await response.json();
     setOutput(data.answer);
@@ -19,11 +17,6 @@ function App() {
 
   return (
     <div>
-      <p>secretAccessKey:</p>
-      <input type="password" value={secretAccessKey} onChange={e => setSecretAccessKey(e.target.value)}/>
-      <p>accessKeyId:</p>
-      <input type="password" value={accessKeyId} onChange={e => setAccessKeyId(e.target.value)}/>
-
       <p>model available in eu-west-1 region:</p>
       <select value={model} onChange={e => setModel(e.target.value)}>
         <option value="mistral.mistral-7b-instruct-v0:2">Mistral 7B Instruct</option>

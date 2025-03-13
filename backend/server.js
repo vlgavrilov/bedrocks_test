@@ -2,34 +2,42 @@
 import express from 'express';
 import cors from 'cors';
 import { BedrockRuntimeClient, InvokeModelCommand } from '@aws-sdk/client-bedrock-runtime';
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Get the directory name of the current module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+dotenv.config({
+  path: path.resolve(__dirname, '../.env')
+});
+
+const clientAi = new BedrockRuntimeClient({
+  region: 'eu-west-1',
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  },
+});
 
 app.post('/ask', async (req, res) => {
   try {
-    const { question, accessKeyId, secretAccessKey, model } = req.body;
-
-    const clientAi = new BedrockRuntimeClient({
-      region: 'eu-west-1',
-      credentials: {
-        accessKeyId: accessKeyId,
-        secretAccessKey: secretAccessKey,
-      },
-    });
-
+    const { question, model } = req.body;
+    
     const requestBody = {
       prompt: question,
-      // maxTokens: 1024,
       temperature: 0.1,
-      // topP: 1,
-      // stopSequences: [],
-      // countPenalty: { scale: 0 },
-      // presencePenalty: { scale: 0 },
-      // frequencyPenalty: { scale: 0 },
+      top_p: 0.9,
+      //stop_sequences: ["\n"],
+      // count_penalty: { scale: 0 },
+      // presence_penalty: { scale: 0 },
+      // frequency_penalty: { scale: 0 },
     };
     const input = {
       modelId: model || 'mistral.mistral-large-2402-v1:0',
