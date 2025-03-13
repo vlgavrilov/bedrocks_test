@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 function App() {
   const [secretAccessKey, setSecretAccessKey] = useState('AccessKey');
-  const [model, setModel] = useState('');
+  const [model, setModel] = useState('mistral.mistral-large-2402-v1:0');
   const [accessKeyId, setAccessKeyId] = useState('KeyId');
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
@@ -26,7 +26,6 @@ function App() {
 
       <p>model available in eu-west-1 region:</p>
       <select value={model} onChange={e => setModel(e.target.value)}>
-        <option value="">Select a model</option>
         <option value="mistral.mistral-7b-instruct-v0:2">Mistral 7B Instruct</option>
         <option value="mistral.mistral-large-2402-v1:0">Mistral Large (24.02)</option>
         <option value="mistral.mixtral-8x7b-instruct-v0:1">Mixtral 8x7B Instruct</option>
