@@ -35,9 +35,6 @@ function App() {
         <option value="amazon.titan-text-express-v1">Titan Text G1 - Express</option>
         <option value="amazon.titan-text-lite-v1">Titan Text G1 - Lite</option>
 
-        <option value="anthropic.claude-3-haiku-20240307-v1:0">Claude 3 Haiku</option>
-        <option value="anthropic.claude-3-sonnet-20240229-v1:0">Claude 3 Sonnet</option>
-        <option value="anthropic.claude-3-5-sonnet-20240620-v1:0">Claude 3.5 Sonnet*</option>
 
         <option value="cohere.embed-english-v3">Embed English</option>
         <option value="cohere.embed-multilingual-v3">Embed Multilingual</option>
