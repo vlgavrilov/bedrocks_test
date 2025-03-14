@@ -30,6 +30,7 @@ app.post('/ask', async (req, res) => {
   try {
     const { question, model } = req.body;
     
+    /*
     const requestBody = {
       prompt: question,
       temperature: 0.1,
@@ -48,8 +49,27 @@ app.post('/ask', async (req, res) => {
     const command = new InvokeModelCommand(input);
     const response = await clientAi.send(command);
     const data = await response.body.transformToString();
-    res.json({ answer: data });
+    res.json({ answer: data }); */
+
+    const params = {
+      modelId: model,
+      contentType: "application/json",
+      accept: "application/json",
+      body: JSON.stringify({
+          prompt: `Describe the image at this URL: https://tripfixers.com/wp-content/uploads/2019/11/eiffel-tower-with-snow.jpeg`,
+          max_tokens: 150, // Adjust as needed
+          temperature: 0.7, // Adjust as needed
+      }),
+    };
+
+    const command = new InvokeModelCommand(params);
+    const response = await clientAi.send(command);
+    
+    const result = JSON.parse(Buffer.from(response.body).toString());
+    const responseText = result.outputs[0].text;
+    res.json({ answer: responseText });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ error: error.message });
   }
 });
